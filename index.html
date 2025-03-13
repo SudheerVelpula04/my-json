@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+    <input type="text" placeholder="enter name" id="username">
+    <input type="text" placeholder="message" id="message">
+    <button onclick="addData()">ADD MESSAGE</button>
+
+    <div id="container" style="width: 200ox; height: 500px; border: 1px,solid,burlywood;"></div>
+    <script>
+        function addData(){
+            var username=document.getElementById('username').value
+            var message=document.getElementById('message').value
+            postData(username,message);
+            
+            // alert('butten cliked')
+        }
+        function postData(username,message){
+            if(username=="" || message==""){
+                alert('please fill both fields')
+            }else{
+                var url="https://opaque-jade-capacity.glitch.me"
+            var options={
+                method:"POST",
+                headers:{
+                    "content-type":"application/json"
+                },
+                "body":JSON.stringify({
+                    username,
+                    message
+                })
+            }
+            fetch(url,options).then(Response=>{
+                if(Response.ok){
+                    // alert('Data added succsfully')
+                    console.log('data added')
+                    DisplayData()
+                }
+            }).catch(err=>console.error(err))
+            // console.log(username,message)
+            }
+        }
+        function DisplayData(){
+            var container=document.getElementById("container")
+            fetch('https://opaque-jade-capacity.glitch.me')
+            .then(res=>res.json()).then(data=>{
+                for(var obj of data){
+                   
+                    // console.log(obj)
+                    var div=document.createElement("div");
+                    div.className="item";
+                    div.style.border="1px,solid,black"
+                    div.style.margin="20px"
+                    div.style.alignContent="center"
+                    var usernamePera=document.createElement('p')
+                    var messagePera=document.createElement('p')
+                    
+                    var {username,message}=obj;
+
+
+                    usernamePera.innerText=`-${username}`;
+                    messagePera.innerText=`userMessage:${message}`;
+
+                    div.appendChild(messagePera);
+                    div.appendChild(usernamePera);
+
+                    container.appendChild(div)
+
+                }
+            })
+            // alert(container)
+        }
+        DisplayData()
+        
+    </script>
+</body>
+</html>
