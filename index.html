@@ -24,7 +24,7 @@
             if(username=="" || message==""){
                 alert('please fill both fields')
             }else{
-                var url="https://opaque-jade-capacity.glitch.me"
+                var url="https://opaque-jade-capacity.glitch.me/students"
             var options={
                 method:"POST",
                 headers:{
@@ -47,7 +47,7 @@
         }
         function DisplayData(){
             var container=document.getElementById("container")
-            fetch('https://opaque-jade-capacity.glitch.me')
+            fetch('https://opaque-jade-capacity.glitch.me/students')
             .then(res=>res.json()).then(data=>{
                 for(var obj of data){
                    
